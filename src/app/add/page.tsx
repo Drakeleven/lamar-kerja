@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase'
 import { useRouter } from 'next/navigation'
 import { ArrowLeft, Save } from 'lucide-react'
@@ -12,8 +12,12 @@ export default function AddApplication() {
   const [form, setForm] = useState({
     company_name: '',
     division: '',
-    applied_at: new Date().toISOString().split('T')[0]
+    applied_at: ''
   })
+
+  useEffect(() => {
+    setForm(prev => ({ ...prev, applied_at: new Date().toISOString().split('T')[0] }))
+  }, [])
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
